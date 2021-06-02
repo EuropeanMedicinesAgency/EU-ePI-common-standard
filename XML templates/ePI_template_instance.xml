@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a template instance merged into the ePI template --><!-- This is a Bundle of Bundles, each of which is a document (having a Composition, and supporting resources) --><!-- This is for FHIR version R5 Preview 2 (May 2020) --><!-- This file uses relative links between resorces e.g. "Resource/id". Some servers require uuid references (to fullUrl) when saving bundles --><Bundle xmlns="http://hl7.org/fhir">
+   <type value="collection"/>
+   <!-- could include a bundle level timestamp here
+    <timestamp></timestamp> -->
+   <!-- Repeat at this level per document -->
+   <!-- Document 1-->
+   <entry>
+      <fullUrl value="urn:uuid:e229e00c-5eae-4905-a644-98aae00aa26b"/>
+      <!-- Top level of each document is a also FHIR Bundle, of type "document"
+		 see http://hl7.org/fhir/documents.html, http://hl7.org/fhir/bundle.html
+	 	 All the other resources for this document are within this. -->
+      <resource>
+         <Bundle><!-- When PUTing, some servers mandate an id here to match the existing id -->
+            <id value="aa7e0516-0d8c-4c24-8642-ce6f2e7dbfd3"/>
+            <!-- document bundles must have an identifier (bdl-9) -->
+            <identifier><!-- possibly different identifier types may be needed here -->
+               <system value="http://ema.europa.eu/fhir/identifier/documentid"/>
+               <value value="KAL999"/>
+            </identifier>
+            <!-- fixed code -->
+            <type value="document"/>
+            <!-- document bundles must have a date (bdl-10) -->
+            <timestamp value="2021-02-01T10:10:10Z"/>
+            <!-- a repeating set of entry elements, each with a FHIR resource inside -->
+            <entry><!-- fullUrl is mandatory for each entry in document Bundle. It is a random uuid. http://build.fhir.org/bundle.html#bundle-unique -->
+               <fullUrl value="urn:uuid:0c5bcdf8-f236-415a-96ca-1355942b0868"/>
+               <resource><!-- the first resource must be Composition (bdl-11) --><!-- This is the overall document structure. --><!-- see definition http://hl7.org/fhir/composition.html, and similar for other resources -->
+                  <Composition><!-- images if requied within html text of this document --><!-- Image 1-->
+                     <contained>
+                        <Binary>
+                           <id value="imageResource"/>
+                           <!-- example format -->
+                           <contentType value="image/png"/>
+                           <!-- data is base 64 encoded, actual bytes of the image png file -->
+                           <data value="iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QYZCik0qECmbAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABtUlEQVQoz2P8//8/Ayb4///v8xfM4iIMzKxoMkwMOMC3DVv/vXmEKY5Dw///Pw8c+Xn2CLEa/r55+/P07t/nrxKl4f/PX6+8g1mlP/44c4eAhn8fP33bsOV1dBoT51V2+z/MohIfeyYy/P2LXcPfFy8/NLb9efTs//utgjUfft35xRUY8Hnm/N/Xb2LT8P//h5ZOnvjoj+11giXcTH//MTLp/v/x9c/z279uXsOi4e/LRwzsbz6vmMyTLM6m9fnXE3Y2l+yv+yez2nL9eX0Wi4afF5eyW4r/+3qYP1Xjz/N3P17ZsRsKMrJd4rL9wcTxDIsGZqEvLEKv2VT/Mgl+/XGbXSB72s/zxXyBYmwqLCxSLFg0sKkHsAg+YJX7xfBTmt204s/NXE4dQTZtT2beH6yqFv9ebkDXwMhnxixrySb68f9fcWYRTSbGA6ya2QwMsixCvxk/djByiWIJVkbBBGaNOoafO5nYWVlkPRjYtP5/388s+JdJkI+R1xquDMl9zOqMQioM7BIMjJ8Z2IUYWOQZeT0Y/u5mEF+G7AdGLMn7712GnycY/v1g+HOZga+WgUkYWRIAe6ip9OnE1GoAAAAASUVORK5CYII="/>
+                        </Binary>
+                     </contained>
+                     <!-- this exension is necessary per image -->
+                     <!-- Image 1-->
+                     <extension url="http://ema.europa.eu/fhir/extension/dummyValidationReference">
+                        <valueReference>
+                           <reference value="#imageResource"/>
+                        </valueReference>
+                     </extension>
+                     <status value="final"/>
+                     <!-- document type -->
+                     <type>
+                        <coding>
+                           <system value="http://spor.ema.europa.eu/v1/lists/100000155531"/>
+                           <code value="100000155532"/>
+                           <display value="Summary of Product Characteristics"/>
+                        </coding>
+                     </type>
+                     <subject><!-- links to the List resource in this bundle - local url format -->
+                        <reference value="List/SmPCProductsKalydeco2"/>
+                        <!-- local url format -->
+                        <!--reference value="${instance.bundle[n].listUuid}"/-->
+                        <!-- uuid url format. Possible alternate format may be neeed -->
+                     </subject>
+                     <!-- mandatory date of the document -->
+                     <date value="2021-02-01"/>
+                     <author>
+                        <identifier>
+                           <system value="http://spor.ema.europa.eu/v1/locations"/>
+                           <value value="LOC-10001868"/>
+                        </identifier>
+                     </author>
+                     <title value="ANNEX 1 - SUMMARY OF PRODUCT CHARACTERISTICS"/>
+                     <relatesTo>
+                        <code value="appends"/>
+                        <targetReference><!-- reference to another Composition -->
+                           <reference value="urn:uuid:1195d0c6-2db9-4017-8ae3-c8a90137e83d"/>
+                        </targetReference>
+                     </relatesTo>
+                     <!-- main sections of the document, to follow the QRD template -->
+                     <section><!-- Section 1-->
+                        <title value="1. NAME OF THE MEDICINAL PRODUCT"/>
+                        <code>
+                           <coding><!-- sections will all have codes to identify them -->
+                              <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                              <code value="00000021212"/>
+                              <display value="Name Section"/>
+                           </coding>
+                        </code>
+                        <!-- text is optional, if this is just a heading it may not be necessary -->
+                        <text><!-- Section 1-->
+                           <status value="additional"/>
+                           <!-- HTML goes here, must start with
+									<div xmlns="http://www.w3.org/1999/xhtml">
+									-->
+                           <!-- any xhtml is valid, with a few exceptions
+											(e.g. head, body, scripts etc).
+										    See http://hl7.org/fhir/narrative.html#Narrative -->
+                           <!-- Doc: 1 Section: 1 Subsection: 0-->
+                           <div xmlns="http://www.w3.org/1999/xhtml">
+                              <div>Kalydeco 75 mg film-coated tablets</div>
+                              <div>Kalydeco 150 mg film-coated tablets</div>
+                           </div>
+                        </text>
+                        <!-- a section within a section -->
+                     </section>
+                     <section><!-- Section 2-->
+                        <title value="2. QUALITATIVE AND QUANTITATIVE COMPOSITION"/>
+                        <code>
+                           <coding><!-- sections will all have codes to identify them -->
+                              <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                              <code value="00000021212"/>
+                              <display value="Composition"/>
+                           </coding>
+                        </code>
+                        <!-- text is optional, if this is just a heading it may not be necessary -->
+                        <text><!-- Section 2-->
+                           <status value="additional"/>
+                           <!-- HTML goes here, must start with
+									<div xmlns="http://www.w3.org/1999/xhtml">
+									-->
+                           <!-- any xhtml is valid, with a few exceptions
+											(e.g. head, body, scripts etc).
+										    See http://hl7.org/fhir/narrative.html#Narrative -->
+                           <!-- Doc: 1 Section: 2 Subsection: 0-->
+                           <div xmlns="http://www.w3.org/1999/xhtml">
+                              <div style="text-decoration:underline">
+                                 <p>Kalydeco 75 mg film-coated tablets</p>
+                              </div>
+                              <div>
+                                 <p>Each film-coated tablet contains 75 mg of ivacaftor.</p>
+                              </div>
+                              <div style="font-style: italic">
+                                 <p>Excipient with known effect</p>
+                              </div>
+                              <div>
+                                 <p>Each film-coated tablet contains 83.6 mg of lactose monohydrate.</p>
+                              </div>
+                              <div style="text-decoration:underline">
+                                 <p>Kalydeco 150 mg film-coated tablets</p>
+                              </div>
+                              <div>
+                                 <p>Each film-coated tablet contains 150 mg of ivacaftor.</p>
+                              </div>
+                              <div style="font-style: italic">
+                                 <p>Excipient with known effect</p>
+                              </div>
+                              <div>
+                                 <p>Each film-coated tablet contains 167.2 mg of lactose monohydrate. For the full list of excipients, see section 6.1.</p>
+                              </div>
+                           </div>
+                        </text>
+                        <!-- a section within a section -->
+                     </section>
+                     <section><!-- Section 3-->
+                        <title value="3. PHARMACEUTICAL FORM"/>
+                        <code>
+                           <coding><!-- sections will all have codes to identify them -->
+                              <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                              <code value="00000031313"/>
+                              <display value="Form"/>
+                           </coding>
+                        </code>
+                        <!-- text is optional, if this is just a heading it may not be necessary -->
+                        <text><!-- Section 3-->
+                           <status value="additional"/>
+                           <!-- HTML goes here, must start with
+									<div xmlns="http://www.w3.org/1999/xhtml">
+									-->
+                           <!-- any xhtml is valid, with a few exceptions
+											(e.g. head, body, scripts etc).
+										    See http://hl7.org/fhir/narrative.html#Narrative -->
+                           <!-- Doc: 1 Section: 3 Subsection: 0-->
+                           <div xmlns="http://www.w3.org/1999/xhtml">
+                              <div>
+                                 <p>Film-coated tablet (tablet)</p>
+                              </div>
+                              <div style="text-decoration:underline">
+                                 <p>Kalydeco 75 mg film-coated tablets</p>
+                              </div>
+                              <div>
+                                 <p>Light blue, capsule-shaped film-coated tablets, printed with “V 75” in black ink on one side and plain on the other (12.7 mm x 6.8 mm in modified tablet shape).</p>
+                              </div>
+                              <div style="text-decoration:underline">
+                                 <p>Kalydeco 150 mg film-coated tablets</p>
+                              </div>
+                              <div>
+                                 <p>Light blue, capsule-shaped film-coated tablets, printed with “V 150” in black ink on one side and plain on the other (16.5 mm x 8.4 mm in modified tablet shape).</p>
+                              </div>
+                              <table>
+                                 <tr>
+                                    <th>Heading 1</th>
+                                    <th>Heading 2</th>
+                                 </tr>
+                                 <tr>
+                                    <td>Some text</td>
+                                    <td>
+                                       <img src="#imageResource" alt="an image"/>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </text>
+                        <!-- a section within a section -->
+                     </section>
+                     <section><!-- Section 4-->
+                        <title value="4. CLINICAL PARTICULARS"/>
+                        <code>
+                           <coding><!-- sections will all have codes to identify them -->
+                              <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                              <code value="0000002223333"/>
+                              <display value="clinical-particulars"/>
+                           </coding>
+                        </code>
+                        <!-- text is optional, if this is just a heading it may not be necessary -->
+                        <!-- a section within a section -->
+                        <!-- Sub-section 1-->
+                        <section><!-- Sub-Section 1-->
+                           <title value="4.1 Therapeutic indications"/>
+                           <code>
+                              <coding>
+                                 <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                                 <code value="00000044444"/>
+                                 <display value="Therapeutic Indications"/>
+                              </coding>
+                           </code>
+                           <text><!-- Section 4-->
+                              <status value="additional"/>
+                              <!-- Doc: 1 Section: 4 Subsection: 1-->
+                              <div xmlns="http://www.w3.org/1999/xhtml">
+                                 <div>
+                                    <p>Kalydeco tablets are indicated:</p>
+                                 </div>
+                                 <ul>
+                                    <li>
+                                       <p>As monotherapy for the treatment of adults, adolescents, and children aged 6 years and older and weighing 25 kg or more with cystic fibrosis (CF) who have an R117H CFTR mutation or one of the following gating (class III) mutations in the cystic fibrosis transmembrane conductance regulator (CFTR) gene: G551D, G1244E, G1349D, G178R, G551S, S1251N, S1255P, S549N or S549R (see sections 4.4 and 5.1).</p>
+                                    </li>
+                                    <li>
+                                       <p>In a combination regimen with tezacaftor/ivacaftor tablets for the treatment of adults, adolescents, and children aged 6 years and older with cystic fibrosis (CF) who are homozygous for the F508del mutation or who are heterozygous for the F508del mutation and have one of the following mutations in the CFTR gene: P67L, R117C, L206W, R352Q, A455E, D579G, 711+3A→G, S945L, S977F, R1070W, D1152H, 2789+5G→A, 3272-26A→G, and 3849+10kbC→T.</p>
+                                    </li>
+                                    <li>
+                                       <p>In a combination regimen with ivacaftor /tezacaftor /elexacaftor tablets for the treatment of adults and adolescents aged 12 years and older with cystic fibrosis (CF) who are homozygous for the F508del mutation in the CFTR gene or heterozygous for F508del and have a minimal function (MF) mutation in the CFTR gene (see section 5.1).</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </text>
+                        </section>
+                        <!-- Sub-section 2-->
+                        <section><!-- Sub-Section 2-->
+                           <title value="4.2 Posology and method of administration"/>
+                           <code>
+                              <coding>
+                                 <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                                 <code value="0000005555"/>
+                                 <display value="Posology"/>
+                              </coding>
+                           </code>
+                           <text><!-- Section 4-->
+                              <status value="additional"/>
+                              <!-- Doc: 1 Section: 4 Subsection: 2-->
+                              <div xmlns="http://www.w3.org/1999/xhtml">
+                                 <div>
+                                    <p>Kalydeco should only be prescribed by physicians with experience in the treatment of cystic fibrosis. If the patient's genotype is unknown, an accurate and validated genotyping method should be performed before starting treatment to confirm the presence of an indicated mutation in the CFTR gene (see section 4.1). The phase of the poly-T variant identified with the R117H mutation should be determined in accordance with local clinical recommendations.</p>
+                                 </div>
+                              </div>
+                           </text>
+                        </section>
+                     </section>
+                     <!-- sections can repeat as necessary -->
+                  </Composition>
+               </resource>
+            </entry>
+            <!-- an entry that is a list of PMS Product references -->
+            <entry>
+               <fullUrl value="urn:uuid:31ba7a75-e9a3-4751-b2a9-2547459acff7"/>
+               <resource>
+                  <List><!-- any id will do -->
+                     <id value="SmPCProductsKalydeco2"/>
+                     <status value="current"/>
+                     <mode value="working"/>
+                     <entry><!-- Product 1-->
+                        <item>
+                           <reference value="MedicinalProductDefinition/Kalydeco75"/>
+                           <display value="Kalydeco 75 mg film-coated tablets"/>
+                        </item>
+                     </entry>
+                     <entry><!-- Product 2-->
+                        <item>
+                           <reference value="MedicinalProductDefinition/Kalydeco150"/>
+                           <display value="Kalydeco 150 mg film-coated tablets"/>
+                        </item>
+                     </entry>
+                  </List>
+               </resource>
+            </entry>
+         </Bundle>
+      </resource>
+   </entry>
+</Bundle>

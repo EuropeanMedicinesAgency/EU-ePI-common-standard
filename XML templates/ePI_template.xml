@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a template for a FHIR resource, and needs items (marked with "${}") replacing to make a real instance --><!-- The resulting instance is a Bundle of Bundles, each of which is a document (having a Composition, and supporting resources) --><!-- 2020-02-22 --><!-- This is for FHIR version R5 Preview 2 (May 2020) --><Bundle xmlns="http://hl7.org/fhir">
+	<type value="collection"/>
+	<!-- could include a bundle level timestamp here
+    <timestamp></timestamp> -->
+	<!-- Repeat at this level per document -->
+	<entry>
+		<fullUrl value="${instance.bundle[n].fullUrlUrnUuid}"/>
+		<!-- Top level of each document is a also FHIR Bundle, of type "document"
+		 see http://hl7.org/fhir/documents.html, http://hl7.org/fhir/bundle.html
+	 	 All the other resources for this document are within this. -->
+		<resource>
+            <Bundle>
+            	<!-- When PUTing, some servers mandate an id here to match the existing id -->
+            	<id value="${instance.bundle[n].idUuid}"/>
+				<!-- document bundles must have an identifier (bdl-9) -->
+				<identifier>
+					<!-- possibly different identifier types may be needed here -->
+					<system value="http://ema.europa.eu/fhir/identifier/documentid"/>
+					<value value="${instance.bundle[n].Identifier}"/>
+				</identifier>
+				<!-- fixed code -->
+				<type value="document"/> 
+            	<!-- document bundles must have a date (bdl-10) -->
+            	<timestamp value="${document[n].authoringDateTime}"/>
+				<!-- a repeating set of entry elements, each with a FHIR resource inside -->
+				<entry>
+					<!-- fullUrl is mandatory for each entry in document Bundle. It is a random uuid. http://build.fhir.org/bundle.html#bundle-unique -->
+					<fullUrl value="${instance.bundle[n].compositionFullUrlUuid}"/>
+					<resource>
+						<!-- the first resource must be Composition (bdl-11) -->
+						<!-- This is the overall document structure. -->
+						<!-- see definition http://hl7.org/fhir/composition.html, and similar for other resources -->
+                        <Composition>
+                        	<!-- images if requied within html text of this document -->
+							<contained>
+                                <Binary>
+                                	<id value="${document[n].image[n].id}"/>
+                                	<!-- example format -->
+                                	<contentType value="${document[n].image[n].mediaType}"/>
+									<!-- data is base 64 encoded, actual bytes of the image png file -->
+                                	<data value="${document[n].image[n].base64data}"/>
+								</Binary>
+							</contained>
+							<!-- this exension is necessary per image -->
+                        	<extension url="http://ema.europa.eu/fhir/extension/dummyValidationReference">
+                        		<valueReference>
+                        			<reference value="#${document[n].image[n].id}"/>
+                        		</valueReference>
+                        	</extension>
+							<status value="final"/>
+							<!-- document type -->
+							<type>
+								<coding>
+									<system value="http://spor.ema.europa.eu/v1/lists/100000155531"/>
+									<code value="${document[n].documentTypeCode}"/>
+									<display value="${document[n].documentTypeDisplay}"/>
+								</coding>
+							</type>
+							<subject>
+								<!-- links to the List resource in this bundle - local url format -->
+								<reference value="List/${instance.bundle[n].listId}"/> <!-- local url format -->
+								<!--reference value="${instance.bundle[n].listUuid}"/--> <!-- uuid url format. Possible alternate format may be neeed -->
+							</subject>
+                        	<!-- mandatory date of the document -->
+                        	<date value="${document[n].authoringDate}"/>
+							<author>
+								<identifier>
+									<system value="http://spor.ema.europa.eu/v1/locations"/>
+									<value value="${document[n].organizationOMSCode}"/>
+								</identifier>
+							</author>
+                        	<title value="${document[n].title}"/>
+							<relatesTo>
+								<code value="appends"/>
+								<targetReference>
+									<!-- reference to another Composition -->
+									<reference value="${document[n].relatesTo}"/>
+								</targetReference>
+							</relatesTo>
+							<!-- main sections of the document, to follow the QRD template -->
+							<section>
+								<title value="${document[n].section[n].title}"/>
+								<code>
+									<coding>
+										<!-- sections will all have codes to identify them -->
+										<system value="http://spor.ema.europa.eu/v1/example-sections"/> 
+										<code value="${document[n].section[n].typeCode}"/>
+										<display value="${document[n].section[n].typeDisplay}"/>
+									</coding>
+								</code>
+								<!-- text is optional, if this is just a heading it may not be necessary -->
+								<text>
+									<status value="additional"/>
+									<!-- HTML goes here, must start with
+									<div xmlns="http://www.w3.org/1999/xhtml">
+									-->
+									<!-- any xhtml is valid, with a few exceptions
+											(e.g. head, body, scripts etc).
+										    See http://hl7.org/fhir/narrative.html#Narrative -->
+									${document[n].section[n].bodyHtml}									
+								</text>
+								<!-- a section within a section -->
+								<section>
+									<title value="${document[n].section[n].subsection[n].title}"/>
+									<code>
+										<coding>
+											<system value="http://spor.ema.europa.eu/v1/example-sections"/>
+											<code value="${document[n].section[n].subsection[n].typeCode}"/>
+											<display value="${document[n].section[n].subsection[n].typeDisplay}"/>
+										</coding>
+									</code>
+									<text>
+										<status value="additional"/>
+										${document[n].section[n].subsection[n].bodyHtml}
+									</text>
+								</section>
+							</section>
+							<!-- sections can repeat as necessary -->
+						</Composition>
+					</resource>
+				</entry>
+				<!-- an entry that is a list of PMS Product references -->
+				<entry>
+					<fullUrl value="${instance.bundle[n].listFullUrlUuid}"/>
+					<resource>
+                        <List>
+							<!-- any id will do -->
+                        	<id value="${instance.bundle[n].listId}"/>
+							<status value="current"/>
+							<mode value="working"/>
+							<entry>
+								<item>
+									<reference value="${instance.product[n].url}"/>
+									<display value="${instance.product[n].name}"/>
+								</item>
+							</entry>
+						</List>
+					</resource>
+				</entry>
+			</Bundle>
+		</resource>
+	</entry>
+</Bundle>
