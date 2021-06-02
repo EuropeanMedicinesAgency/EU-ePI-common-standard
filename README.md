@@ -13,8 +13,8 @@ An EU Common Standard for ePI refers to the technical features of ePI to be agre
 To facilitate stakeholder consultation, EMA is hosting half-day virtual workshops designed to inform on the standard and explore its future use. Feedback from the workshops will contribute to ensuring that the adopted Common Standard meets the needs of its future users, confirming they can access, view and disseminate product information in electronic format, ePI.
 
 The consultation is being carried out on the following documents:
-- ePI API Specification (PDF) and the associated ePI API service list (Excel), available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/tree/master/API%20specification).
-- A FHIR xml template based on the Quality Review of Documents (QRD) template for human medicines, available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/blob/master/XML%20templates/ePI_template.xml);
+- ePI API Specification (PDF) and the associated ePI API service list (Excel), available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/tree/master/API%20specification);
+- A FHIR xml template based on the Quality Review of Documents (QRD) template for human medicines, available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/blob/master/XML%20templates/ePI_template.xml).
 
 An instance of an ePI sample message is provided in XML and HTML, along with a sample XSL transformation, available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/tree/master/XML%20templates). 
 
