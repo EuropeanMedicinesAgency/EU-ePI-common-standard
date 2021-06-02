@@ -16,7 +16,7 @@ The consultation is being carried out on the following documents:
 - ePI API Specification (PDF) and the associated ePI API service list (Excel), available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/tree/master/API%20specification).
 - A FHIR xml template based on the Quality Review of Documents (QRD) template for human medicines, available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/blob/master/XML%20templates/ePI_template.xml);
 
-An instance of an ePI sample message is provided in XML and HTML, along with a sample XSL transformation.; 
+An instance of an ePI sample message is provided in XML and HTML, along with a sample XSL transformation, available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/tree/master/XML%20templates). 
 
 Consultation feedback is collected via this [survey](https://ec.europa.eu/eusurvey/runner/ePIStandardConsultation).
 ## Workshops
@@ -24,12 +24,6 @@ Consultation feedback is collected via this [survey](https://ec.europa.eu/eusurv
 - The Exploratory Workshop is aimed at technical participants with knowledge of development languages and REST API. Participants will require their own workstation with an XML editor, API developer and development environment. These are mandatory requirements, as these workshops involve participants carrying out hands-on development tasks.
 
 NB. Exploratory Workshop participants are strongly advised to attend the Information Workshop also to gain a full understanding of the context and hear background presentations.
-
-## Exploratory workshop
-
-The material to be used in the exploratory workshop will be managed [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation).
-1. A FHIR xml template based on the Quality Review of Documents (QRD) template for human medicines. 
-2. An instance of the standard comprising xml, xsl and html files; 
 
 ## Contact
 
