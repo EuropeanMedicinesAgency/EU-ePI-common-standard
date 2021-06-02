@@ -18,7 +18,7 @@ To facilitate stakeholder consultation, EMA is hosting half-day virtual workshop
 
 NB. Exploratory Workshop participants are strongly advised to attend the Information Workshop also to gain a full understanding of the context and hear background presentations.
 
-## Exloratory workshop
+## Exploratory workshop
 
 The material to be used in the exploratory workshop will be managed [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation).
 1. A FHIR xml template based on the Quality Review of Documents (QRD) template for human medicines. 
