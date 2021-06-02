@@ -14,7 +14,7 @@ To facilitate stakeholder consultation, EMA is hosting half-day virtual workshop
 
 The consultation is being carried out on the following documents:
 - ePI API Specification (PDF) and the associated ePI API service list (Excel), available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/tree/master/API%20specification);
-- A FHIR xml template based on the Quality Review of Documents (QRD) template for human medicines, available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/blob/master/XML%20templates/ePI_template.xml).
+- A FHIR XML template based on the Quality Review of Documents (QRD) template for human medicines, available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/blob/master/XML%20templates/ePI_template.xml).
 
 An instance of an ePI sample message is provided in XML and HTML, along with a sample XSL transformation, available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/tree/master/XML%20templates). 
 
