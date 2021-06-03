@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This is a template for a FHIR resource, and needs items (marked with "${}") replacing to make a real instance --><!-- The resulting instance is a Bundle of Bundles, each of which is a document (having a Composition, and supporting resources) --><!-- 2020-02-22 --><!-- This is for FHIR version R5 Preview 2 (May 2020) --><Bundle xmlns="http://hl7.org/fhir">
-	<type value="collection"/>
+<!-- This is a template for a FHIR resource, and needs items (marked with "${}") replacing to make a real instance -->
+<!-- The resulting instance is a Bundle of Bundles, each of which is a document (having a Composition, and supporting resources) -->
+<!-- 2020-02-22 -->
+<!-- This is for FHIR version R5 Preview 2 (May 2020) -->
+<Bundle xmlns="http://hl7.org/fhir">
+	<!-- change here 2021-04-09, now a transaction -->
+	<type value="transaction"/> 
 	<!-- could include a bundle level timestamp here
     <timestamp></timestamp> -->
-	<!-- Repeat at this level per document -->
+	<!-- one document bundle list, covers all the documents -->
+   	<entry>
+      	<fullUrl value="${instance.listFullUrlUrnUuid}"/>
+      	<resource>
+       		<List>
+	            <status value="current"/>
+	            <mode value="working"/>
+	            <!-- repeat per document Bundle -->
+	            <entry>
+             		<item>
+	                  	<!-- matches fullUrl of the Nth Bundle -->
+	                  	<reference value="${instance.bundle[n].fullUrlUrnUuid}"/>
+	               	</item>
+	            </entry>
+	        </List>
+		</resource>
+      	<request>
+      		<method value="POST"/>
+         	<url value="List"/>
+      	</request>
+   	</entry>
+	<!-- Repeat this per document -->
 	<entry>
 		<fullUrl value="${instance.bundle[n].fullUrlUrnUuid}"/>
 		<!-- Top level of each document is a also FHIR Bundle, of type "document"
@@ -12,7 +38,7 @@
 		<resource>
             <Bundle>
             	<!-- When PUTing, some servers mandate an id here to match the existing id -->
-            	<id value="${instance.bundle[n].idUuid}"/>
+            	<!--id value="${instance.bundle[n].idUuid}"/-->
 				<!-- document bundles must have an identifier (bdl-9) -->
 				<identifier>
 					<!-- possibly different identifier types may be needed here -->
@@ -20,7 +46,7 @@
 					<value value="${instance.bundle[n].Identifier}"/>
 				</identifier>
 				<!-- fixed code -->
-				<type value="document"/> 
+				<type value="document" /> 
             	<!-- document bundles must have a date (bdl-10) -->
             	<timestamp value="${document[n].authoringDateTime}"/>
 				<!-- a repeating set of entry elements, each with a FHIR resource inside -->
@@ -32,7 +58,7 @@
 						<!-- This is the overall document structure. -->
 						<!-- see definition http://hl7.org/fhir/composition.html, and similar for other resources -->
                         <Composition>
-                        	<!-- images if requied within html text of this document -->
+                        	<!-- images if required within html text of this document -->
 							<contained>
                                 <Binary>
                                 	<id value="${document[n].image[n].id}"/>
@@ -66,8 +92,8 @@
                         	<date value="${document[n].authoringDate}"/>
 							<author>
 								<identifier>
-									<system value="http://spor.ema.europa.eu/v1/locations"/>
-									<value value="${document[n].organizationOMSCode}"/>
+									<system value="http://spor.ema.europa.eu/v1/locations" />
+									<value value="${document[n].organizationOMSCode}" />
 								</identifier>
 							</author>
                         	<title value="${document[n].title}"/>
@@ -126,7 +152,7 @@
 					<resource>
                         <List>
 							<!-- any id will do -->
-                        	<id value="${instance.bundle[n].listId}"/>
+                        	<!--id value="${instance.bundle[n].listId}"/-->
 							<status value="current"/>
 							<mode value="working"/>
 							<entry>
@@ -140,5 +166,9 @@
 				</entry>
 			</Bundle>
 		</resource>
+		<request>
+			<method value="POST"/>
+ 			<url value="Bundle"/>
+ 		</request>
 	</entry>
 </Bundle>

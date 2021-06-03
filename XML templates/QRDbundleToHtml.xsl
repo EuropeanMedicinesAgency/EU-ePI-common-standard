@@ -18,6 +18,7 @@
 <xsl:template match="/">
 	<html>
 		<xsl:apply-templates/>
+		<xsl:call-template name="emitInlineStylesheet"/>
 	</html>
 </xsl:template>
 
@@ -55,7 +56,6 @@
 				<xsl:apply-templates select="."/>
 			</xsl:for-each>
 		</div>
-		<xsl:call-template name="emitInlineStylesheet"/>
 	</body>
 
 </xsl:template>
@@ -122,12 +122,13 @@
 	<style>
 
 @media all {
-    .header { font-size:12pt; text-weight:bold; text-align:center; margin-bottom:0px; }
+    .header { font-size:12pt; font-weight:bold; text-align:center; margin-bottom:0px; }
+    body { font:10pt 'Verdana'; margin-right:1.5em; }
     h1 { font-size:16pt; text-weight:bold; }
     h2 { font-size:12pt; margin-top:20px; color:blue; }
-    h3 { font-size:12pt; text-weight:bold; margin-bottom:0px;margin-top:-2px;}
-    body { font:10pt 'Verdana'; margin-right:1.5em; }
-    table,tr,td,th { border: 1px solid black; }
+    h3 { font-size:12pt; font-weight:bold; }
+    p { margin:0; padding:0; }
+    table,tr,td,th { border: 1px solid black; font-size:10pt;}
 
     .ecl-u-mv-m, ecl-editor, ecl-table { font-family: Verdana,sans-serif; }
     .ecl-table { border-collapse: collapse; }

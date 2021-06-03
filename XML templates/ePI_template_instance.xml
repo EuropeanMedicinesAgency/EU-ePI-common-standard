@@ -1,22 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This is a template instance merged into the ePI template --><!-- This is a Bundle of Bundles, each of which is a document (having a Composition, and supporting resources) --><!-- This is for FHIR version R5 Preview 2 (May 2020) --><!-- This file uses relative links between resorces e.g. "Resource/id". Some servers require uuid references (to fullUrl) when saving bundles --><Bundle xmlns="http://hl7.org/fhir">
-   <type value="collection"/>
+<!-- This is a template instance merged into the ePI template -->
+<!-- This is a Bundle of Bundles, each of which is a document (having a Composition, and supporting resources) -->
+<!-- This is for FHIR version R5 Preview 2 (May 2020) -->
+<!-- This file uses relative links between resources e.g. "Resource/id". Some servers require uuid references (to fullUrl) when saving bundles -->
+<Bundle xmlns="http://hl7.org/fhir"><!-- change here 2021-04-09, now a transaction -->
+   <type value="transaction"/>
    <!-- could include a bundle level timestamp here
     <timestamp></timestamp> -->
-   <!-- Repeat at this level per document -->
+   <!-- one document bundle list, covers all the documents -->
+   <entry>
+      <fullUrl value="urn:uuid:da31f73b-322f-4285-b833-89907e388557"/>
+      <resource>
+         <List>
+            <status value="current"/>
+            <mode value="working"/>
+            <!-- repeat per document Bundle -->
+            <entry><!-- Document bundle 1-->
+               <item><!-- matches fullUrl of the Nth Bundle -->
+                  <reference value="urn:uuid:1b575a0b-3bc8-499f-9852-2da9f8e5a908"/>
+               </item>
+            </entry>
+         </List>
+      </resource>
+      <request>
+         <method value="POST"/>
+         <url value="List"/>
+      </request>
+   </entry>
+   <!-- Repeat this per document -->
    <!-- Document 1-->
    <entry>
-      <fullUrl value="urn:uuid:e229e00c-5eae-4905-a644-98aae00aa26b"/>
+      <fullUrl value="urn:uuid:1b575a0b-3bc8-499f-9852-2da9f8e5a908"/>
       <!-- Top level of each document is a also FHIR Bundle, of type "document"
 		 see http://hl7.org/fhir/documents.html, http://hl7.org/fhir/bundle.html
 	 	 All the other resources for this document are within this. -->
       <resource>
-         <Bundle><!-- When PUTing, some servers mandate an id here to match the existing id -->
-            <id value="aa7e0516-0d8c-4c24-8642-ce6f2e7dbfd3"/>
-            <!-- document bundles must have an identifier (bdl-9) -->
+         <Bundle><!-- When PUTing, some servers mandate an id here to match the existing id --><!--id value="${instance.bundle[n].idUuid}"/--><!-- document bundles must have an identifier (bdl-9) -->
             <identifier><!-- possibly different identifier types may be needed here -->
                <system value="http://ema.europa.eu/fhir/identifier/documentid"/>
-               <value value="KAL999"/>
+               <value value="KAR-Auth-999"/>
             </identifier>
             <!-- fixed code -->
             <type value="document"/>
@@ -24,9 +46,9 @@
             <timestamp value="2021-02-01T10:10:10Z"/>
             <!-- a repeating set of entry elements, each with a FHIR resource inside -->
             <entry><!-- fullUrl is mandatory for each entry in document Bundle. It is a random uuid. http://build.fhir.org/bundle.html#bundle-unique -->
-               <fullUrl value="urn:uuid:0c5bcdf8-f236-415a-96ca-1355942b0868"/>
+               <fullUrl value="urn:uuid:1195d0c6-2db9-4017-8ae3-c8a90137e83d"/>
                <resource><!-- the first resource must be Composition (bdl-11) --><!-- This is the overall document structure. --><!-- see definition http://hl7.org/fhir/composition.html, and similar for other resources -->
-                  <Composition><!-- images if requied within html text of this document --><!-- Image 1-->
+                  <Composition><!-- images if required within html text of this document --><!-- Image 1-->
                      <contained>
                         <Binary>
                            <id value="imageResource"/>
@@ -53,7 +75,7 @@
                         </coding>
                      </type>
                      <subject><!-- links to the List resource in this bundle - local url format -->
-                        <reference value="List/SmPCProductsKalydeco2"/>
+                        <reference value="List/SmPCProductsKarvea1"/>
                         <!-- local url format -->
                         <!--reference value="${instance.bundle[n].listUuid}"/-->
                         <!-- uuid url format. Possible alternate format may be neeed -->
@@ -63,16 +85,10 @@
                      <author>
                         <identifier>
                            <system value="http://spor.ema.europa.eu/v1/locations"/>
-                           <value value="LOC-10001868"/>
+                           <value value="LOC-10009999"/>
                         </identifier>
                      </author>
                      <title value="ANNEX 1 - SUMMARY OF PRODUCT CHARACTERISTICS"/>
-                     <relatesTo>
-                        <code value="appends"/>
-                        <targetReference><!-- reference to another Composition -->
-                           <reference value="urn:uuid:1195d0c6-2db9-4017-8ae3-c8a90137e83d"/>
-                        </targetReference>
-                     </relatesTo>
                      <!-- main sections of the document, to follow the QRD template -->
                      <section><!-- Section 1-->
                         <title value="1. NAME OF THE MEDICINAL PRODUCT"/>
@@ -94,8 +110,7 @@
 										    See http://hl7.org/fhir/narrative.html#Narrative -->
                            <!-- Doc: 1 Section: 1 Subsection: 0-->
                            <div xmlns="http://www.w3.org/1999/xhtml">
-                              <div>Kalydeco 75 mg film-coated tablets</div>
-                              <div>Kalydeco 150 mg film-coated tablets</div>
+                              <div>Karvea 75 mg film-coated tablets</div>
                            </div>
                         </text>
                         <!-- a section within a section -->
@@ -120,30 +135,14 @@
 										    See http://hl7.org/fhir/narrative.html#Narrative -->
                            <!-- Doc: 1 Section: 2 Subsection: 0-->
                            <div xmlns="http://www.w3.org/1999/xhtml">
-                              <div style="text-decoration:underline">
-                                 <p>Kalydeco 75 mg film-coated tablets</p>
-                              </div>
-                              <div>
-                                 <p>Each film-coated tablet contains 75 mg of ivacaftor.</p>
-                              </div>
-                              <div style="font-style: italic">
-                                 <p>Excipient with known effect</p>
-                              </div>
-                              <div>
-                                 <p>Each film-coated tablet contains 83.6 mg of lactose monohydrate.</p>
-                              </div>
-                              <div style="text-decoration:underline">
-                                 <p>Kalydeco 150 mg film-coated tablets</p>
-                              </div>
-                              <div>
-                                 <p>Each film-coated tablet contains 150 mg of ivacaftor.</p>
-                              </div>
-                              <div style="font-style: italic">
-                                 <p>Excipient with known effect</p>
-                              </div>
-                              <div>
-                                 <p>Each film-coated tablet contains 167.2 mg of lactose monohydrate. For the full list of excipients, see section 6.1.</p>
-                              </div>
+                              <p>Each tablet contains 75 mg of irbesartan.</p>
+                              <br/>
+                              <p>
+                                 <span style="text-decoration:underline">Excipient with known effect</span>
+                                 <span>:  15.37 mg of lactose monohydrate per tablet.</span>
+                              </p>
+                              <br/>
+                              <p>For the full list of excipients, see section 6.1.</p>
                            </div>
                         </text>
                         <!-- a section within a section -->
@@ -168,33 +167,8 @@
 										    See http://hl7.org/fhir/narrative.html#Narrative -->
                            <!-- Doc: 1 Section: 3 Subsection: 0-->
                            <div xmlns="http://www.w3.org/1999/xhtml">
-                              <div>
-                                 <p>Film-coated tablet (tablet)</p>
-                              </div>
-                              <div style="text-decoration:underline">
-                                 <p>Kalydeco 75 mg film-coated tablets</p>
-                              </div>
-                              <div>
-                                 <p>Light blue, capsule-shaped film-coated tablets, printed with “V 75” in black ink on one side and plain on the other (12.7 mm x 6.8 mm in modified tablet shape).</p>
-                              </div>
-                              <div style="text-decoration:underline">
-                                 <p>Kalydeco 150 mg film-coated tablets</p>
-                              </div>
-                              <div>
-                                 <p>Light blue, capsule-shaped film-coated tablets, printed with “V 150” in black ink on one side and plain on the other (16.5 mm x 8.4 mm in modified tablet shape).</p>
-                              </div>
-                              <table>
-                                 <tr>
-                                    <th>Heading 1</th>
-                                    <th>Heading 2</th>
-                                 </tr>
-                                 <tr>
-                                    <td>Some text</td>
-                                    <td>
-                                       <img src="#imageResource" alt="an image"/>
-                                    </td>
-                                 </tr>
-                              </table>
+                              <p>Tablet.</p>
+                              <p>White to off-white, biconvex, and oval-shaped with a heart debossed on one side and the number 2771 engraved on the other side.</p>
                            </div>
                         </text>
                         <!-- a section within a section -->
@@ -224,20 +198,10 @@
                               <status value="additional"/>
                               <!-- Doc: 1 Section: 4 Subsection: 1-->
                               <div xmlns="http://www.w3.org/1999/xhtml">
-                                 <div>
-                                    <p>Kalydeco tablets are indicated:</p>
-                                 </div>
-                                 <ul>
-                                    <li>
-                                       <p>As monotherapy for the treatment of adults, adolescents, and children aged 6 years and older and weighing 25 kg or more with cystic fibrosis (CF) who have an R117H CFTR mutation or one of the following gating (class III) mutations in the cystic fibrosis transmembrane conductance regulator (CFTR) gene: G551D, G1244E, G1349D, G178R, G551S, S1251N, S1255P, S549N or S549R (see sections 4.4 and 5.1).</p>
-                                    </li>
-                                    <li>
-                                       <p>In a combination regimen with tezacaftor/ivacaftor tablets for the treatment of adults, adolescents, and children aged 6 years and older with cystic fibrosis (CF) who are homozygous for the F508del mutation or who are heterozygous for the F508del mutation and have one of the following mutations in the CFTR gene: P67L, R117C, L206W, R352Q, A455E, D579G, 711+3A→G, S945L, S977F, R1070W, D1152H, 2789+5G→A, 3272-26A→G, and 3849+10kbC→T.</p>
-                                    </li>
-                                    <li>
-                                       <p>In a combination regimen with ivacaftor /tezacaftor /elexacaftor tablets for the treatment of adults and adolescents aged 12 years and older with cystic fibrosis (CF) who are homozygous for the F508del mutation in the CFTR gene or heterozygous for F508del and have a minimal function (MF) mutation in the CFTR gene (see section 5.1).</p>
-                                    </li>
-                                 </ul>
+                                 <p>Karvea is indicated in adults for the treatment of essential hypertension.</p>
+                                 <p>It is also indicated for the treatment of renal disease in adult patients with hypertension and type 2
+                            diabetes mellitus as part of an antihypertensive medicinal product regimen (see sections 4.3, 4.4, 4.5
+                            and 5.1).</p>
                               </div>
                            </text>
                         </section>
@@ -255,9 +219,39 @@
                               <status value="additional"/>
                               <!-- Doc: 1 Section: 4 Subsection: 2-->
                               <div xmlns="http://www.w3.org/1999/xhtml">
-                                 <div>
-                                    <p>Kalydeco should only be prescribed by physicians with experience in the treatment of cystic fibrosis. If the patient's genotype is unknown, an accurate and validated genotyping method should be performed before starting treatment to confirm the presence of an indicated mutation in the CFTR gene (see section 4.1). The phase of the poly-T variant identified with the R117H mutation should be determined in accordance with local clinical recommendations.</p>
-                                 </div>
+                                 <p style="text-decoration:underline">Posology</p>
+                                 <br/>
+                                 <p>The usual recommended initial and maintenance dose is 150 mg once daily, with or without food.
+                            Karvea at a dose of 150 mg once daily generally provides a better 24 hour blood pressure control than
+                            75 mg. However, initiation of therapy with 75 mg could be considered, particularly in haemodialysed
+                            patients and in the elderly over 75 years.</p>
+                                 <br/>
+                                 <p>In patients insufficiently controlled with 150 mg once daily, the dose of Karvea can be increased to
+                            300 mg, or other antihypertensive agents can be added (see sections 4.3, 4.4, 4.5 and 5.1). In
+                            particular, the addition of a diuretic such as hydrochlorothiazide has been shown to have an additive
+                            effect with Karvea (see section 4.5).</p>
+                                 <br/>
+                                 <p>In hypertensive type 2 diabetic patients, therapy should be initiated at 150 mg irbesartan once daily
+                            and titrated up to 300 mg once daily as the preferred maintenance dose for treatment of renal disease.
+                            The demonstration of renal benefit of Karvea in hypertensive type 2 diabetic patients is based on
+                            studies where irbesartan was used in addition to other antihypertensive agents, as needed, to reach
+                            target blood pressure (see sections 4.3, 4.4, 4.5 and 5.1).
+                        </p>
+                                 <br/>
+                                 <p> Exmaple of a table:</p>
+                                 <table>
+                                    <tr>
+                                       <th>Heading 1</th>
+                                       <th>Heading 2</th>
+                                    </tr>
+                                    <tr>
+                                       <td>Some text</td>
+                                       <!-- possible to link images to embedded Binary resources (contained resources) -->
+                                       <td>
+                                          <img src="#imageResource" alt="an image"/>
+                                       </td>
+                                    </tr>
+                                 </table>
                               </div>
                            </text>
                         </section>
@@ -268,22 +262,15 @@
             </entry>
             <!-- an entry that is a list of PMS Product references -->
             <entry>
-               <fullUrl value="urn:uuid:31ba7a75-e9a3-4751-b2a9-2547459acff7"/>
+               <fullUrl value="urn:uuid:812a430c-0eda-4615-a30b-a760edaa3597"/>
                <resource>
-                  <List><!-- any id will do -->
-                     <id value="SmPCProductsKalydeco2"/>
+                  <List><!-- any id will do --><!--id value="${instance.bundle[n].listId}"/-->
                      <status value="current"/>
                      <mode value="working"/>
                      <entry><!-- Product 1-->
                         <item>
-                           <reference value="MedicinalProductDefinition/Kalydeco75"/>
-                           <display value="Kalydeco 75 mg film-coated tablets"/>
-                        </item>
-                     </entry>
-                     <entry><!-- Product 2-->
-                        <item>
-                           <reference value="MedicinalProductDefinition/Kalydeco150"/>
-                           <display value="Kalydeco 150 mg film-coated tablets"/>
+                           <reference value="MedicinalProductDefinition/Karvea75"/>
+                           <display value="Karvea 75 mg tablets"/>
                         </item>
                      </entry>
                   </List>
@@ -291,5 +278,9 @@
             </entry>
          </Bundle>
       </resource>
+      <request>
+         <method value="POST"/>
+         <url value="Bundle"/>
+      </request>
    </entry>
 </Bundle>
