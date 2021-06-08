@@ -17,6 +17,3 @@ Please refer to the [ePI API specification](https://github.com/EuropeanMedicines
 For demo purposes, please find [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/blob/master/XML%20templates/QRDbundleToHtml.xsl) an XSL stylesheet, converting ePI messages to HTML. 
 
 An example of an XSL tranformation engine can be found [here](https://www.saxonica.com/html/documentation10/using-xsl/).
-
-
-The contents of these webpages are [© EMA [1995-2021]](https://www.ema.europa.eu/en/about-us/legal-notice).
