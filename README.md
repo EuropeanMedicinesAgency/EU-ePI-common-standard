@@ -28,3 +28,5 @@ NB. Exploratory Workshop participants are strongly advised to attend the Informa
 ## Contact
 
 For further information or clarifications please contact <ePI@ema.europa.eu>.
+
+The contents of these webpages are © EMA [1995-2021].
