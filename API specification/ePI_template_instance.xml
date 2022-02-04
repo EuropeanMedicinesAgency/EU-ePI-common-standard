@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is for FHIR version R5 Preview 2 (May 2020) --><!-- updated 2021-09-14 post consultation 
+     Added flag and language to PI List (and called it the PI List)
+     Corrected typo: Exmaple
+--><!-- This is an Envelope Bundle example --><Bundle xmlns="http://hl7.org/fhir">
+   <type value="transaction"/>
+   <!-- timestamp possible future use for a business time (but see also meta.lastUpdated - which is the resource time) -->
+   <!--timestamp></timestamp> -->
+   <!-- one document bundle list, covers all the documents -->
+   <entry>
+      <fullUrl value="urn:uuid:da31f73b-322f-4285-b833-89907e388557"/>
+      <resource>
+         <!-- This is a PI List. It says this PI set has one document in it --> 
+         <List>
+            <status value="current"/>
+            <mode value="working"/>
+            <!-- repeat per document Bundle -->
+            <entry><!-- Document bundle 1-->
+               <flag><!-- flag is used to give the type of document -->
+                  <coding>
+                     <system value="http://spor.ema.europa.eu/v1/100000155531"/>
+                     <code value="100000155532"/>
+                     <display value="SmPC"/>
+                  </coding>
+               </flag>
+               <item>
+                  <extension url="http://ema.europa.eu/fhir/extension/language">
+                     <valueCoding>
+                        <system value="http://spor.ema.europa.eu/v1/100000072057"/>
+                        <code value="100000072147"/>
+                        <display value="English"/>
+                     </valueCoding>
+                  </extension>
+                  <reference value="urn:uuid:1b575a0b-3bc8-499f-9852-2da9f8e5a908"/>
+               </item>
+            </entry>
+         </List>
+      </resource>
+      <request>
+         <method value="POST"/>
+         <url value="List"/>
+      </request>
+   </entry>
+   <!-- Repeat this per document -->
+   <!-- Document 1-->
+   <entry>
+      <fullUrl value="urn:uuid:1b575a0b-3bc8-499f-9852-2da9f8e5a908"/>
+      <!-- Top level of each document is a also FHIR Bundle, of type "document"
+		 see http://hl7.org/fhir/documents.html, http://hl7.org/fhir/bundle.html
+	 	 All the other resources for this document are within this. -->
+      <resource>
+         <Bundle><!-- When PUTing, some servers mandate an id here to match the existing id --><!--id value="${instance.bundle[n].idUuid}"/--><!-- document bundles must have an identifier (bdl-9) -->
+            <identifier><!-- possibly different identifier types may be needed here -->
+               <system value="http://ema.europa.eu/fhir/identifier/documentid"/>
+               <value value="KAR-Auth-999"/>
+            </identifier>
+            <!-- fixed code -->
+            <type value="document"/>
+            <!-- document bundles must have a date (bdl-10) -->
+            <timestamp value="2021-02-01T10:10:10Z"/>
+            <!-- a repeating set of entry elements, each with a FHIR resource inside -->
+            <entry><!-- fullUrl is mandatory for each entry in document Bundle. It is a random uuid. http://build.fhir.org/bundle.html#bundle-unique -->
+               <fullUrl value="urn:uuid:1195d0c6-2db9-4017-8ae3-c8a90137e83d"/>
+               <resource><!-- the first resource must be Composition (bdl-11) --><!-- This is the overall document structure. --><!-- see definition http://hl7.org/fhir/composition.html, and similar for other resources -->
+                  <Composition><!-- images if required within html text of this document --><!-- Image 1-->
+                     <contained>
+                        <Binary>
+                           <id value="imageResource"/>
+                           <!-- example format -->
+                           <contentType value="image/png"/>
+                           <!-- data is base 64 encoded, actual bytes of the image png file -->
+                           <data value="iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QYZCik0qECmbAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABtUlEQVQoz2P8//8/Ayb4///v8xfM4iIMzKxoMkwMOMC3DVv/vXmEKY5Dw///Pw8c+Xn2CLEa/r55+/P07t/nrxKl4f/PX6+8g1mlP/44c4eAhn8fP33bsOV1dBoT51V2+z/MohIfeyYy/P2LXcPfFy8/NLb9efTs//utgjUfft35xRUY8Hnm/N/Xb2LT8P//h5ZOnvjoj+11giXcTH//MTLp/v/x9c/z279uXsOi4e/LRwzsbz6vmMyTLM6m9fnXE3Y2l+yv+yez2nL9eX0Wi4afF5eyW4r/+3qYP1Xjz/N3P17ZsRsKMrJd4rL9wcTxDIsGZqEvLEKv2VT/Mgl+/XGbXSB72s/zxXyBYmwqLCxSLFg0sKkHsAg+YJX7xfBTmt204s/NXE4dQTZtT2beH6yqFv9ebkDXwMhnxixrySb68f9fcWYRTSbGA6ya2QwMsixCvxk/djByiWIJVkbBBGaNOoafO5nYWVlkPRjYtP5/388s+JdJkI+R1xquDMl9zOqMQioM7BIMjJ8Z2IUYWOQZeT0Y/u5mEF+G7AdGLMn7712GnycY/v1g+HOZga+WgUkYWRIAe6ip9OnE1GoAAAAASUVORK5CYII="/>
+                        </Binary>
+                     </contained>
+                     <!-- this exension is necessary per image -->
+                     <!-- Image 1-->
+                     <extension url="http://ema.europa.eu/fhir/extension/dummyValidationReference">
+                        <valueReference>
+                           <reference value="#imageResource"/>
+                        </valueReference>
+                     </extension>
+                     <status value="final"/>
+                     <!-- document type -->
+                     <type>
+                        <coding>
+                           <system value="https://spor.ema.europa.eu/v1/lists/100000155531"/> <!-- changed here to https 2021-06-11 -->
+                           <code value="100000155532"/>
+                           <display value="Summary of Product Characteristics"/>
+                        </coding>
+                     </type>
+                     <subject>
+                        <extension url="http://ema.europa.eu/fhir/extension/domain">
+                           <valueCoding>
+                              <system value="https://spor.ema.europa.eu/v1/100000000004"/>
+                              <code value="100000000012"/>
+                              <display value="H"/>
+                           </valueCoding>
+                        </extension>
+                        <!--extension url="http://ema.europa.eu/fhir/extension/medicine-name">
+                           <valueString value="Karvea" />
+                        </extension-->
+                        <!-- links to the List resource in this bundle -->
+                        <!-- uuid url format -->
+                        <reference value="urn:uuid:812a430c-0eda-4615-a30b-a760edaa3597"/> <!-- changed to reference by fullUrl 2021-06-11 -->
+                        <display value="Karvea"/>
+                     </subject>
+                     <!-- mandatory date of the document -->
+                     <date value="2021-02-01"/>
+                     <author>
+                        <identifier>
+                           <system value="http://spor.ema.europa.eu/v1/locations"/>
+                           <value value="LOC-10009999"/>
+                        </identifier>
+                     </author>
+                     <title value="ANNEX 1 - SUMMARY OF PRODUCT CHARACTERISTICS"/>
+                     <!-- removed 2021-07-07 no longer using relatesTo -->
+                     <!-- main sections of the document, to follow the QRD template -->
+                     <section><!-- Section 1-->
+                        <title value="1. NAME OF THE MEDICINAL PRODUCT"/>
+                        <code>
+                           <coding><!-- sections will all have codes to identify them -->
+                              <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                              <code value="00000021212"/>
+                              <display value="Name Section"/>
+                           </coding>
+                        </code>
+                        <!-- text is optional, if this is just a heading it may not be necessary -->
+                        <text><!-- Section 1-->
+                           <status value="additional"/>
+                           <!-- HTML goes here, must start with
+									<div xmlns="http://www.w3.org/1999/xhtml">
+									-->
+                           <!-- any xhtml is valid, with a few exceptions
+											(e.g. head, body, scripts etc).
+										    See http://hl7.org/fhir/narrative.html#Narrative -->
+                           <!-- Doc: 1 Section: 1 Subsection: 0-->
+                           <div xmlns="http://www.w3.org/1999/xhtml">
+                              <div>Karvea 75 mg film-coated tablets</div>
+                           </div>
+                        </text>
+                        <!-- a section within a section -->
+                     </section>
+                     <section><!-- Section 2-->
+                        <title value="2. QUALITATIVE AND QUANTITATIVE COMPOSITION"/>
+                        <code>
+                           <coding><!-- sections will all have codes to identify them -->
+                              <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                              <code value="00000021213"/> <!-- change here to remove repeated example code 2021-06-11 -->
+                              <display value="Composition"/>
+                           </coding>
+                        </code>
+                        <!-- text is optional, if this is just a heading it may not be necessary -->
+                        <text><!-- Section 2-->
+                           <status value="additional"/>
+                           <!-- HTML goes here, must start with
+									<div xmlns="http://www.w3.org/1999/xhtml">
+									-->
+                           <!-- any xhtml is valid, with a few exceptions
+											(e.g. head, body, scripts etc).
+										    See http://hl7.org/fhir/narrative.html#Narrative -->
+                           <!-- Doc: 1 Section: 2 Subsection: 0-->
+                           <div xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Each tablet contains 75 mg of irbesartan.</p>
+                              <br/>
+                              <p>
+                                 <span style="text-decoration:underline">Excipient with known effect</span>
+                                 <span>:  15.37 mg of lactose monohydrate per tablet.</span>
+                              </p>
+                              <br/>
+                              <p>For the full list of excipients, see section 6.1.</p>
+                           </div>
+                        </text>
+                        <!-- a section within a section -->
+                     </section>
+                     <section><!-- Section 3-->
+                        <title value="3. PHARMACEUTICAL FORM"/>
+                        <code>
+                           <coding><!-- sections will all have codes to identify them -->
+                              <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                              <code value="00000031313"/>
+                              <display value="Form"/>
+                           </coding>
+                        </code>
+                        <!-- text is optional, if this is just a heading it may not be necessary -->
+                        <text><!-- Section 3-->
+                           <status value="additional"/>
+                           <!-- HTML goes here, must start with
+									<div xmlns="http://www.w3.org/1999/xhtml">
+									-->
+                           <!-- any xhtml is valid, with a few exceptions
+											(e.g. head, body, scripts etc).
+										    See http://hl7.org/fhir/narrative.html#Narrative -->
+                           <!-- Doc: 1 Section: 3 Subsection: 0-->
+                           <div xmlns="http://www.w3.org/1999/xhtml">
+                              <p>Tablet.</p>
+                              <p>White to off-white, biconvex, and oval-shaped with a heart debossed on one side and the number 2771 engraved on the other side.</p>
+                           </div>
+                        </text>
+                        <!-- a section within a section -->
+                     </section>
+                     <section><!-- Section 4-->
+                        <title value="4. CLINICAL PARTICULARS"/>
+                        <code>
+                           <coding><!-- sections will all have codes to identify them -->
+                              <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                              <code value="0000002223333"/>
+                              <display value="clinical-particulars"/>
+                           </coding>
+                        </code>
+                        <!-- text is optional, if this is just a heading it may not be necessary -->
+                        <!-- a section within a section -->
+                        <!-- Sub-section 1-->
+                        <section><!-- Sub-Section 1-->
+                           <title value="4.1 Therapeutic indications"/>
+                           <code>
+                              <coding>
+                                 <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                                 <code value="00000044444"/>
+                                 <display value="Therapeutic Indications"/>
+                              </coding>
+                           </code>
+                           <text><!-- Section 4-->
+                              <status value="additional"/>
+                              <!-- Doc: 1 Section: 4 Subsection: 1-->
+                              <div xmlns="http://www.w3.org/1999/xhtml">
+                                 <p>Karvea is indicated in adults for the treatment of essential hypertension.</p>
+                                 <p>It is also indicated for the treatment of renal disease in adult patients with hypertension and type 2
+                            diabetes mellitus as part of an antihypertensive medicinal product regimen (see sections 4.3, 4.4, 4.5
+                            and 5.1).</p>
+                              </div>
+                           </text>
+                        </section>
+                        <!-- Sub-section 2-->
+                        <section><!-- Sub-Section 2-->
+                           <title value="4.2 Posology and method of administration"/>
+                           <code>
+                              <coding>
+                                 <system value="http://spor.ema.europa.eu/v1/example-sections"/>
+                                 <code value="0000005555"/>
+                                 <display value="Posology"/>
+                              </coding>
+                           </code>
+                           <text><!-- Section 4-->
+                              <status value="additional"/>
+                              <!-- Doc: 1 Section: 4 Subsection: 2-->
+                              <div xmlns="http://www.w3.org/1999/xhtml">
+                                 <p style="text-decoration:underline">Posology</p>
+                                 <br/>
+                                 <p>The usual recommended initial and maintenance dose is 150 mg once daily, with or without food.
+                            Karvea at a dose of 150 mg once daily generally provides a better 24 hour blood pressure control than
+                            75 mg. However, initiation of therapy with 75 mg could be considered, particularly in haemodialysed
+                            patients and in the elderly over 75 years.</p>
+                                 <br/>
+                                 <p>In patients insufficiently controlled with 150 mg once daily, the dose of Karvea can be increased to
+                            300 mg, or other antihypertensive agents can be added (see sections 4.3, 4.4, 4.5 and 5.1). In
+                            particular, the addition of a diuretic such as hydrochlorothiazide has been shown to have an additive
+                            effect with Karvea (see section 4.5).</p>
+                                 <br/>
+                                 <p>In hypertensive type 2 diabetic patients, therapy should be initiated at 150 mg irbesartan once daily
+                            and titrated up to 300 mg once daily as the preferred maintenance dose for treatment of renal disease.
+                            The demonstration of renal benefit of Karvea in hypertensive type 2 diabetic patients is based on
+                            studies where irbesartan was used in addition to other antihypertensive agents, as needed, to reach
+                            target blood pressure (see sections 4.3, 4.4, 4.5 and 5.1).
+                        </p>
+                                 <br/>
+                                 <p>Example of a table:</p>
+                                 <table>
+                                    <tr>
+                                       <th>Heading 1</th>
+                                       <th>Heading 2</th>
+                                    </tr>
+                                    <tr>
+                                       <td>Some text</td>
+                                       <!-- possible to link images to embedded Binary resources (contained resources) -->
+                                       <td>
+                                          <img src="#imageResource" alt="an image"/>
+                                       </td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </text>
+                        </section>
+                     </section>
+                     <!-- sections can repeat as necessary -->
+                  </Composition>
+               </resource>
+            </entry>
+            <!-- an entry that is a list of PMS Product references -->
+            <entry>
+               <fullUrl value="urn:uuid:812a430c-0eda-4615-a30b-a760edaa3597"/>
+               <resource>
+                  <List>
+                     <status value="current"/>
+                     <mode value="working"/>
+                     <entry><!-- Product 1-->
+                        <item>
+                           <reference value="MedicinalProductDefinition/Karvea75"/>
+                           <display value="Karvea 75 mg tablets"/>
+                        </item>
+                     </entry>
+                  </List>
+               </resource>
+            </entry>
+         </Bundle>
+      </resource>
+      <request>
+         <method value="POST"/>
+         <url value="Bundle"/>
+      </request>
+   </entry>
+</Bundle>
