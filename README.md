@@ -4,7 +4,7 @@
 
 [EU Common Standard for electronic product information (ePI)](https://www.ema.europa.eu/en/human-regulatory/marketing-authorisation/product-information-requirements#electronic-product-information-initiative-section) is authorised, statutory product information for EU medicines (the summary of product  characteristics [SmPC, intended for healthcare professionals], labelling [outer and inner packaging information] and package leaflet [PL, for patients / consumers]) in a semi-structured format created using the EU Common Standard. ePI is adapted for electronic handling and allows dissemination via the web, e-platforms and print. 
 
-## EU ePI Common Common Standard 
+## EU ePI Common Standard 
 
 The EU ePI Common Standard refers to the technical features of ePI agreed by regulators and stakeholders. The documentation for the draft EU ePI Common Standard was the subject of workshops and a public consultation. The EU ePI Common Standard has been adopted in September 2021 by the EU Network Data Board on behalf of the European Medicines Regulatory Network.
 
