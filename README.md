@@ -20,4 +20,4 @@ EMA, national competent authorities and the European Commission are conducting a
 
 For further information or clarifications please contact <ePI@ema.europa.eu>.
 
-The contents of these webpages are [© EMA [1995-2021]](https://www.ema.europa.eu/en/about-us/legal-notice).
+The contents of these webpages are [© EMA [1995-2022]](https://www.ema.europa.eu/en/about-us/legal-notice).
