@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This is a template instance merged into the ePI template -->
-<!-- This is a Bundle of Bundles, each of which is a document (having a Composition, and supporting resources) -->
-<!-- This is for FHIR version R5 Preview 2 (May 2020) -->
-<!-- This file uses relative links between resources e.g. "Resource/id". Some servers require uuid references (to fullUrl) when saving bundles -->
-<Bundle xmlns="http://hl7.org/fhir"><!-- change here 2021-04-09, now a transaction -->
+<!-- This is for FHIR version R5 Preview 2 (May 2020) --><!-- updated 2021-09-14 post consultation 
+     Added flag and language to PI List (and called it the PI List)
+     Corrected typo: Exmaple
+--><!-- This is an Envelope Bundle example --><Bundle xmlns="http://hl7.org/fhir">
    <type value="transaction"/>
-   <!-- could include a bundle level timestamp here
-    <timestamp></timestamp> -->
+   <!-- timestamp possible future use for a business time (but see also meta.lastUpdated - which is the resource time) -->
+   <!--timestamp></timestamp> -->
    <!-- one document bundle list, covers all the documents -->
    <entry>
       <fullUrl value="urn:uuid:da31f73b-322f-4285-b833-89907e388557"/>
       <resource>
+         <!-- This is a PI List. It says this PI set has one document in it --> 
          <List>
             <status value="current"/>
             <mode value="working"/>
             <!-- repeat per document Bundle -->
             <entry><!-- Document bundle 1-->
-               <item><!-- matches fullUrl of the Nth Bundle -->
+               <flag><!-- flag is used to give the type of document -->
+                  <coding>
+                     <system value="http://spor.ema.europa.eu/v1/100000155531"/>
+                     <code value="100000155532"/>
+                     <display value="SmPC"/>
+                  </coding>
+               </flag>
+               <item>
+                  <extension url="http://ema.europa.eu/fhir/extension/language">
+                     <valueCoding>
+                        <system value="http://spor.ema.europa.eu/v1/100000072057"/>
+                        <code value="100000072147"/>
+                        <display value="English"/>
+                     </valueCoding>
+                  </extension>
                   <reference value="urn:uuid:1b575a0b-3bc8-499f-9852-2da9f8e5a908"/>
                </item>
             </entry>
@@ -69,16 +83,26 @@
                      <!-- document type -->
                      <type>
                         <coding>
-                           <system value="http://spor.ema.europa.eu/v1/lists/100000155531"/>
+                           <system value="https://spor.ema.europa.eu/v1/lists/100000155531"/> <!-- changed here to https 2021-06-11 -->
                            <code value="100000155532"/>
                            <display value="Summary of Product Characteristics"/>
                         </coding>
                      </type>
-                     <subject><!-- links to the List resource in this bundle - local url format -->
-                        <reference value="List/SmPCProductsKarvea1"/>
-                        <!-- local url format -->
-                        <!--reference value="${instance.bundle[n].listUuid}"/-->
-                        <!-- uuid url format. Possible alternate format may be neeed -->
+                     <subject>
+                        <extension url="http://ema.europa.eu/fhir/extension/domain">
+                           <valueCoding>
+                              <system value="https://spor.ema.europa.eu/v1/100000000004"/>
+                              <code value="100000000012"/>
+                              <display value="H"/>
+                           </valueCoding>
+                        </extension>
+                        <!--extension url="http://ema.europa.eu/fhir/extension/medicine-name">
+                           <valueString value="Karvea" />
+                        </extension-->
+                        <!-- links to the List resource in this bundle -->
+                        <!-- uuid url format -->
+                        <reference value="urn:uuid:812a430c-0eda-4615-a30b-a760edaa3597"/> <!-- changed to reference by fullUrl 2021-06-11 -->
+                        <display value="Karvea"/>
                      </subject>
                      <!-- mandatory date of the document -->
                      <date value="2021-02-01"/>
@@ -89,6 +113,7 @@
                         </identifier>
                      </author>
                      <title value="ANNEX 1 - SUMMARY OF PRODUCT CHARACTERISTICS"/>
+                     <!-- removed 2021-07-07 no longer using relatesTo -->
                      <!-- main sections of the document, to follow the QRD template -->
                      <section><!-- Section 1-->
                         <title value="1. NAME OF THE MEDICINAL PRODUCT"/>
@@ -120,7 +145,7 @@
                         <code>
                            <coding><!-- sections will all have codes to identify them -->
                               <system value="http://spor.ema.europa.eu/v1/example-sections"/>
-                              <code value="00000021212"/>
+                              <code value="00000021213"/> <!-- change here to remove repeated example code 2021-06-11 -->
                               <display value="Composition"/>
                            </coding>
                         </code>
@@ -238,7 +263,7 @@
                             target blood pressure (see sections 4.3, 4.4, 4.5 and 5.1).
                         </p>
                                  <br/>
-                                 <p> Exmaple of a table:</p>
+                                 <p>Example of a table:</p>
                                  <table>
                                     <tr>
                                        <th>Heading 1</th>
@@ -264,7 +289,7 @@
             <entry>
                <fullUrl value="urn:uuid:812a430c-0eda-4615-a30b-a760edaa3597"/>
                <resource>
-                  <List><!-- any id will do --><!--id value="${instance.bundle[n].listId}"/-->
+                  <List>
                      <status value="current"/>
                      <mode value="working"/>
                      <entry><!-- Product 1-->

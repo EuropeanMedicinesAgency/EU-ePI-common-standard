@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This is a template for a FHIR resource, and needs items (marked with "${}") replacing to make a real instance -->
-<!-- The resulting instance is a Bundle of Bundles, each of which is a document (having a Composition, and supporting resources) -->
-<!-- 2020-02-22 -->
-<!-- This is for FHIR version R5 Preview 2 (May 2020) -->
-<Bundle xmlns="http://hl7.org/fhir">
-	<!-- change here 2021-04-09, now a transaction -->
+<!-- This is a template for a FHIR resource, and needs items (marked with "${}") replacing to make a real instance [template comment] --><!-- The resulting instance is a Bundle of Bundles, each of which is a document (having a Composition, and supporting resources) [template comment] --><!-- 2020-09-14 post consultation
+     removed "relatesTo" never used
+	 added list entry flag (document type) and an extension for language [template comment] --><!-- This is for FHIR version R5 Preview 2 (May 2020) --><!-- This is an Envelope Bundle example --><Bundle xmlns="http://hl7.org/fhir">
 	<type value="transaction"/> 
-	<!-- could include a bundle level timestamp here
-    <timestamp></timestamp> -->
+    <!-- timestamp possible future use for a business time (but see also meta.lastUpdated - which is the resource time) -->
+    <!--timestamp></timestamp> -->
 	<!-- one document bundle list, covers all the documents -->
-   	<entry>
-      	<fullUrl value="${instance.listFullUrlUrnUuid}"/>
-      	<resource>
-       		<List>
-	            <status value="current"/>
-	            <mode value="working"/>
-	            <!-- repeat per document Bundle -->
-	            <entry>
+	<entry>
+    	<fullUrl value="${instance.listFullUrlUrnUuid}"/>
+		<resource>
+	        <!-- This is a PI List. It says this PI set has one document in it -->
+			<List>
+            	<status value="current"/>
+            	<mode value="working"/>
+            	<!-- repeat per document Bundle -->
+            	<entry>
+					<flag> <!-- flag is used to give the type of document -->
+						<coding>
+							<system value="http://spor.ema.europa.eu/v1/100000155531"/>
+							<code value="${instance.bundle[n].documentTypeCode}"/>
+							<display value="${instance.bundle[n].documentTypeDisplay}"/>
+						</coding>
+             		</flag>   
              		<item>
-	                  	<!-- matches fullUrl of the Nth Bundle -->
-	                  	<reference value="${instance.bundle[n].fullUrlUrnUuid}"/>
-	               	</item>
-	            </entry>
-	        </List>
+             			<extension url="http://ema.europa.eu/fhir/extension/language">
+             				<valueCoding>
+             					<system value="http://spor.ema.europa.eu/v1/100000072057"/>
+             					<code value="${instance.bundle[n].languageCode}"/>
+             					<display value="${instance.bundle[n].languageDisplay}"/>
+             				</valueCoding>
+             			</extension>
+                  		<!-- matches fullUrl of the Nth Bundle [template comment] -->
+                  		<reference value="${instance.bundle[n].fullUrlUrnUuid}"/>
+               		</item>
+            	</entry>
+        	</List>
 		</resource>
-      	<request>
-      		<method value="POST"/>
-         	<url value="List"/>
-      	</request>
-   	</entry>
+		<request>
+			<method value="POST"/>
+			<url value="List"/>
+		</request>
+	</entry>
 	<!-- Repeat this per document -->
 	<entry>
 		<fullUrl value="${instance.bundle[n].fullUrlUrnUuid}"/>
@@ -46,7 +58,7 @@
 					<value value="${instance.bundle[n].Identifier}"/>
 				</identifier>
 				<!-- fixed code -->
-				<type value="document" /> 
+				<type value="document"/> 
             	<!-- document bundles must have a date (bdl-10) -->
             	<timestamp value="${document[n].authoringDateTime}"/>
 				<!-- a repeating set of entry elements, each with a FHIR resource inside -->
@@ -78,32 +90,39 @@
 							<!-- document type -->
 							<type>
 								<coding>
-									<system value="http://spor.ema.europa.eu/v1/lists/100000155531"/>
+									<system value="https://spor.ema.europa.eu/v1/lists/100000155531"/>
 									<code value="${document[n].documentTypeCode}"/>
 									<display value="${document[n].documentTypeDisplay}"/>
 								</coding>
 							</type>
 							<subject>
-								<!-- links to the List resource in this bundle - local url format -->
-								<reference value="List/${instance.bundle[n].listId}"/> <!-- local url format -->
-								<!--reference value="${instance.bundle[n].listUuid}"/--> <!-- uuid url format. Possible alternate format may be neeed -->
+								<extension url="https://ema.europa.eu/fhir/extension/domain">
+									<valueCoding>
+										<system value="https://spor.ema.europa.eu/v1/100000000004"/>
+										<code value="${instance.bundle[n].domainCode}"/>
+										<display value="${instance.bundle[n].domainDisplay}"/>
+									</valueCoding>
+								</extension>
+								<!--extension url="http://ema.europa.eu/fhir/extension/medicine-name">
+									<valueString value="Karvea" />
+								</extension-->
+								<!-- links to the List resource in this bundle -->
+								<!-- uuid url format -->
+								<reference value="${instance.bundle[n].listUuid}"/>
+								<!-- local url format [template comment] -->
+								<!--reference value="List/${instance.bundle[n].listId}"/ [template comment] -->
+								<display value="${instance.bundle[n].productName}"/>
 							</subject>
                         	<!-- mandatory date of the document -->
                         	<date value="${document[n].authoringDate}"/>
 							<author>
 								<identifier>
-									<system value="http://spor.ema.europa.eu/v1/locations" />
-									<value value="${document[n].organizationOMSCode}" />
+									<system value="http://spor.ema.europa.eu/v1/locations"/>
+									<value value="${document[n].organizationOMSCode}"/>
 								</identifier>
 							</author>
                         	<title value="${document[n].title}"/>
-							<relatesTo>
-								<code value="appends"/>
-								<targetReference>
-									<!-- reference to another Composition -->
-									<reference value="${document[n].relatesTo}"/>
-								</targetReference>
-							</relatesTo>
+							<!-- removed 2021-07-07 no longer using relatesTo -->
 							<!-- main sections of the document, to follow the QRD template -->
 							<section>
 								<title value="${document[n].section[n].title}"/>
@@ -151,8 +170,8 @@
 					<fullUrl value="${instance.bundle[n].listFullUrlUuid}"/>
 					<resource>
                         <List>
-							<!-- any id will do -->
-                        	<!--id value="${instance.bundle[n].listId}"/-->
+							<!-- any id will do [template comment]-->
+                        	<!--id value="${instance.bundle[n].listId}"/ [template comment] -->
 							<status value="current"/>
 							<mode value="working"/>
 							<entry>

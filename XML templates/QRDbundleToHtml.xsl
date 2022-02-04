@@ -1,9 +1,12 @@
-<!-- XSLT to display an ePI/QRD/SmPC bundle/composition as HTML - Rik 2021-03-12 -->
-<!-- it relies on having xhtml text in the input file, and the main task is to turn that into plain html
-     (with a few changes such as changing composition.title into another html heading.
-	 it will also do some id based lookups, e.g. to put referenced images into the text
+<!-- XSLT to display an ePI/QRD/SmPC bundle/composition as HTML - Rik 2021-09-09 -->
+<!-- Relies on having xhtml text in the input file, and the main task is to turn that into plain html
+     with a few changes such as changing composition.title into another html heading.
+     It will also do some id based lookups, e.g. to put referenced images into the text
 -->
-	
+<!-- 2021-09-09 Added watermark and disclaimer.
+                Fixed issue where outer div of each section was getting removed.
+-->
+
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:f="http://hl7.org/fhir"
@@ -17,7 +20,13 @@
 
 <xsl:template match="/">
 	<html>
-		<xsl:apply-templates/>
+
+	<div class="disclaimer">Disclaimer:<br/>
+	These web pages are not intended to be used as a source of information on medicines.
+	The web pages are not kept up to date and are for demonstration purposes only.
+	For up-to-date information on a medicine, please consult www.ema.europa.eu/medicines or the package leaflet of your medicine.</div>			
+
+	<xsl:apply-templates/>
 		<xsl:call-template name="emitInlineStylesheet"/>
 	</html>
 </xsl:template>
@@ -67,7 +76,8 @@
 			<xsl:value-of select="@value"/>
 		</xsl:element>
 	</xsl:for-each>
-	<xsl:apply-templates select="f:text/xhtml:div/(*|text())"/>
+	<!-- Rik 2021-06-09 now doesn't strip top level divs -->
+	<xsl:apply-templates select="f:text/xhtml:div"/>
 	<xsl:apply-templates select="f:section"/>
 </xsl:template>
 
@@ -157,6 +167,27 @@
    	 	background-color: rgb(0, 51, 153);
    	 	vertical-align: top;
     	color: #fff;
+	}
+
+	.disclaimer { font-style:italic; }
+	
+	body:before {
+	  content: 'Not for use as medicines information';
+	  position: fixed;
+	  top: -70;
+	  bottom: 0;
+	  left: 0;
+	  right: 0;
+	  z-index: -1;
+	
+	  color: #0d745e;
+	  font-size: 70px;
+	  font-weight: 500px;
+	  display: grid;
+	  justify-content: center;
+	  align-content: center;
+	  opacity: 0.2;
+	  transform: rotate(-25deg);
 	}
 }
 	</style>
