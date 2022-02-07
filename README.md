@@ -14,7 +14,7 @@ The EU ePI Common Standard consists of:
 
 An instance of an ePI sample message is provided in XML and HTML, along with a sample XSL transformation, available [here](https://github.com/EuropeanMedicinesAgency/ePI-consultation/tree/master/XML%20templates). 
 
-EMA, national competent authorities and the European Commission are conducting an electronic product information (ePI) pilot project to pilot use of the EU ePI Common Standard in regulatory procedures. This project is funded by EU4Health..
+EMA, national competent authorities and the European Commission are conducting an electronic product information (ePI) pilot project to pilot use of the EU ePI Common Standard in regulatory procedures. This project is funded by EU4Health.
 
 ## Contact
 
